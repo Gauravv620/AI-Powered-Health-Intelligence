@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup - HealthAI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="login-card">
+        <h1>Sign Up</h1>
+        <p>Create your account to start your health journey</p>
+
+        <!-- EMAIL -->
+        <div class="input-box">
+            <i class="fa fa-envelope"></i>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-box">
+            <i class="fa fa-lock"></i>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+
+        <!-- BUTTON -->
+        <button class="login-btn" onclick="signup()">Create Account</button>
+
+        <p class="signup">Already have an account? <a href="/login">Login</a></p>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+</body>
+</html>

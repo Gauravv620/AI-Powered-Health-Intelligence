@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Face Scan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/face.css') }}">
+</head>
+
+<body>
+
+<div class="scan-container">
+    <video id="video" autoplay></video>
+
+    <!-- SCAN BOX -->
+    <div class="scan-box"></div>
+
+    <p>Scanning Face...</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/face.js') }}"></script>
+</body>
+</html>
