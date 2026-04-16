@@ -37,7 +37,8 @@ function loginUser() {
         console.log(data);
 
         if (data.success) {
-            window.location.href = "/dashboard";
+            // 🔥 FIXED (break iframe)
+            window.top.location.href = "/dashboard";
         } else {
             alert(data.message);
         }
@@ -101,7 +102,9 @@ function startFaceVerification(email){
             if(data.success){
                 clearInterval(interval);
                 stopCamera();
-                window.location = "/dashboard";
+
+                // 🔥 FIXED
+                window.top.location.href = "/dashboard";
             }
         });
 
@@ -158,7 +161,9 @@ function googleLogin(){
         .then(res => res.json())
         .then(data => {
             if(data.success){
-                window.location = "/dashboard";
+
+                // 🔥 FIXED
+                window.top.location.href = "/dashboard";
             }
         });
 

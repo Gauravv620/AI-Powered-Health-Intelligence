@@ -18,7 +18,7 @@
         <a href="#features">Features</a>
         <a href="#programs">Programs</a>
         <a href="#how">How</a>
-        <a href="/login">Login</a>
+       <a href="#" onclick="openLogin()">Login</a>
     </div>
 </nav>
 
@@ -36,7 +36,7 @@
         <p class="fade delay">Predict • Analyze • Improve your life</p>
 
         <div class="buttons fade delay2">
-            <a href="/login" class="btn primary">Get Started</a>
+            <a href="#" class="btn primary" onclick="openLogin()">Get Started</a>
             <a href="#features" class="btn secondary">Explore</a>
         </div>
     </div>
@@ -401,6 +401,20 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="auth-modal">
+
+    <div class="auth-container">
+
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <!-- IFRAME (LOAD YOUR REAL PAGES) -->
+        <iframe id="authFrame" src="about:blank"></iframe>
+    </div>
+
+</div>
 
 </body>
 </html>

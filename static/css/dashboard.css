@@ -1,0 +1,131 @@
+/* Base */
+:root{
+  --bg:#0b1f2a;
+  --card:#122b3a;
+  --card-2:#0f2533;
+  --text:#e9f3f8;
+  --muted:#9fb8c6;
+  --accent:#2dd4bf;
+  --accent-2:#22c55e;
+  --warn:#f59e0b;
+  --danger:#ef4444;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+body{
+  margin:0;
+  font-family: "Poppins", system-ui, sans-serif;
+  background: radial-gradient(1200px 600px at 20% -10%, #12364a 0%, transparent 60%),
+              radial-gradient(1000px 500px at 120% 0%, #0f3b4a 0%, transparent 60%),
+              var(--bg);
+  color:var(--text);
+}
+
+/* Navbar */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 28px;
+  background:linear-gradient(180deg,#0e2a3a,#0b2230);
+  box-shadow: var(--shadow);
+}
+.logo{font-weight:700;letter-spacing:.5px}
+.actions a{color:var(--muted);text-decoration:none;margin-left:16px}
+
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:18px;
+  padding:18px;
+}
+@media(max-width:1200px){ .grid{grid-template-columns: repeat(2,1fr);} }
+@media(max-width:640px){ .grid{grid-template-columns: 1fr;} }
+
+/* Cards (glassmorphism) */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)) , var(--card);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+.card h3{margin:0 0 10px 0}
+
+/* Inputs */
+.row{display:flex;gap:10px;margin-bottom:10px}
+input{
+  flex:1;
+  background:var(--card-2);
+  border:1px solid rgba(255,255,255,.06);
+  color:var(--text);
+  padding:10px 12px;
+  border-radius:10px;
+  outline:none;
+}
+input::placeholder{color:#7aa2b5}
+
+/* Buttons */
+button{
+  border:none;
+  border-radius:10px;
+  padding:10px 14px;
+  background: linear-gradient(90deg, #16a3c7, #2dd4bf);
+  color:#06252f;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover{filter:brightness(1.05)}
+
+/* Badge */
+.badge{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  font-weight:700;
+}
+.badge.low{background:#123a2a;color:#86efac}
+.badge.medium{background:#3a2a12;color:#fde68a}
+.badge.high{background:#3a1212;color:#fecaca}
+
+/* Value coloring */
+.val{padding:6px 10px;border-radius:10px;display:inline-block}
+.val.ok{background:rgba(34,197,94,.15);color:#86efac}
+.val.warn{background:rgba(245,158,11,.15);color:#fde68a}
+.val.bad{background:rgba(239,68,68,.15);color:#fecaca}
+
+/* Health score ring */
+.ring{
+  width:140px;height:140px;border-radius:50%;
+  margin:10px auto;
+  background: conic-gradient(var(--accent) 0%, #1f3a48 0%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow: inset 0 0 0 12px #0f2533;
+}
+.ring span{font-weight:700}
+
+/* ECG animation canvas container hint */
+.canvas-wrap{height:160px}
+
+/* Chat */
+.chat-box{
+  height:160px;overflow:auto;background:#0f2533;border-radius:10px;padding:10px
+}
+.msg{margin:6px 0}
+.msg.user{color:#7dd3fc}
+.msg.bot{color:#86efac}
+
+/* subtle shine */
+.card::after{
+  content:"";
+  position:absolute;inset:-40% -20% auto auto;height:120%;
+  background: radial-gradient(300px 80px at 0 0, rgba(255,255,255,.12), transparent 60%);
+  transform: rotate(25deg);
+  pointer-events:none;
+}

@@ -276,3 +276,56 @@ window.addEventListener("scroll", () => {
         }
     });
 });
+
+
+// ================= AUTH MODAL =================
+
+
+// OPEN LOGIN
+function openLogin(){
+    const modal = document.getElementById("authModal");
+    const frame = document.getElementById("authFrame");
+
+    frame.src = "/login";     // set first
+    modal.style.display = "flex";
+}
+
+// OPEN SIGNUP
+function openSignup(){
+    const modal = document.getElementById("authModal");
+    const frame = document.getElementById("authFrame");
+
+    frame.src = "/signup";
+    modal.style.display = "flex";
+}
+
+// CLOSE MODAL
+function closeModal(){
+    const modal = document.getElementById("authModal");
+    const frame = document.getElementById("authFrame");
+
+    modal.style.display = "none";
+
+    // 🔥 HARD RESET (important)
+    frame.src = "about:blank";
+}
+
+
+// 🔥 FORCE RESET ON LOAD (VERY IMPORTANT)
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("authModal");
+    const frame = document.getElementById("authFrame");
+
+    if(modal) modal.style.display = "none";
+    if(frame) frame.src = "about:blank";   // prevents old page (dashboard)
+});
+
+
+// 🔥 CLOSE WHEN CLICK OUTSIDE
+window.addEventListener("click", (e) => {
+    const modal = document.getElementById("authModal");
+
+    if (e.target === modal) {
+        closeModal();
+    }
+});
