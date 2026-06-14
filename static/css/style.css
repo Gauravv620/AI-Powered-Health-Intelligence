@@ -1271,7 +1271,8 @@ main{
 
 /* BOX */
 .auth-container {
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     height: 580px;   /* little bigger */
     background: #0f2235;
     border-radius: 15px;
@@ -1299,3 +1300,48 @@ main{
     cursor: pointer;
     z-index: 10;
 }
+
+/* ===== NEW RESPONSIVE STYLING RULES ===== */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .navbar a {
+        margin-left: 15px;
+        font-size: 14px;
+    }
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+    .section {
+        padding: 60px 20px;
+    }
+    .section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .navbar h2 {
+        font-size: 20px;
+    }
+    .navbar a {
+        margin: 0 8px;
+        font-size: 13px;
+    }
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+}

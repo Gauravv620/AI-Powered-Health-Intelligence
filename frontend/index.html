@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HealthAI</title>
+
+<link rel="stylesheet" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <h2>HealthAI</h2>
+    <div>
+        <a href="#features">Features</a>
+        <a href="#programs">Programs</a>
+        <a href="#how">How</a>
+       <a href="#" onclick="openLogin()">Login</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+    <video autoplay muted loop class="bg-video">
+        <source src="/static/videos/health.mp4">
+    </video>
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1 class="fade">AI-Powered Health Intelligence</h1>
+        <p class="fade delay">Predict • Analyze • Improve your life</p>
+
+        <div class="buttons fade delay2">
+            <a href="#" class="btn primary" onclick="openLogin()">Get Started</a>
+            <a href="#features" class="btn secondary">Explore</a>
+        </div>
+    </div>
+
+</section>
+
+<!-- FEATURES WITH IMAGES -->
+<section id="features" class="section">
+    <h2>Smart AI Features</h2>
+
+   <div class="grid">
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/ai.jpg">
+    <div class="overlay">
+      <h3>AI Intelligence</h3>
+      <p>Smart AI-driven insights</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/analytics.jpg">
+    <div class="overlay">
+      <h3>Analytics</h3>
+      <p>Visual health dashboards</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/chat.jpg">
+    <div class="overlay">
+      <h3>AI Chatbot</h3>
+      <p>Instant assistance</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/diet.jpg">
+    <div class="overlay">
+      <h3>Diet Planning</h3>
+      <p>Personalized nutrition</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/disease.jpg">
+    <div class="overlay">
+      <h3>Disease Prediction</h3>
+      <p>Early detection AI</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/face.jpg">
+    <div class="overlay">
+      <h3>Face Login</h3>
+      <p>Secure authentication</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/fitness.jpg">
+    <div class="overlay">
+      <h3>Fitness Tracking</h3>
+      <p>Monitor activity</p>
+    </div>
+  </div>
+
+  <div class="card nf-card reveal tilt">
+    <img src="/static/images/monitor.jpg">
+    <div class="overlay">
+      <h3>Live Monitoring</h3>
+      <p>Real-time health data</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- PROGRAMS (CULTFIT STYLE SLIDER) -->
+<section id="programs" class="section dark">
+    <h2>Explore AI Programs</h2>
+
+    <div class="scroll-container">
+
+        <div class="scroll-track">
+
+            <div class="program-card">
+                <img src="/static/images/disease.jpg">
+                <div class="program-overlay">
+                    <h3>Health Risk</h3>
+                   <p>
+                    Detect potential diseases at an early stage using advanced AI models.  
+                    
+                  </p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <img src="/static/images/fitness.jpg">
+                <div class="program-overlay">
+                    <h3>Fitness AI</h3>
+                    <p>Achieve your fitness goals with smart guidance and insights.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <img src="/static/images/diet.jpg">
+                <div class="program-overlay">
+                    <h3>Nutrition AI</h3>
+                    <p>Receive customized diet plans based on your health profile.</p>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <img src="/static/images/monitor.jpg">
+                <div class="program-overlay">
+                    <h3>Live Monitoring</h3>
+                    <p>Monitor your health metrics in real-time with AI tracking.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DASHBOARD (PREMIUM UI) -->
+<section class="section dashboard-ultra">
+
+    <h2>AI Health Control Panel</h2>
+
+    <div class="dash-grid">
+
+        <!-- HEALTH SCORE -->
+        <div class="dash-card glass">
+            <h3>Health Score</h3>
+            <div class="ring">
+                <span id="scoreVal">0%</span>
+            </div>
+        </div>
+
+        <!-- ECG WAVE -->
+        <div class="dash-card glass">
+            <h3>Live Heart Activity</h3>
+            <canvas id="ecgChart"></canvas>
+        </div>
+
+        <!-- LINE CHART -->
+        <div class="dash-card glass">
+            <h3>Health Trend</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+
+        <!-- DOUGHNUT -->
+        <div class="dash-card glass">
+            <h3>Nutrition Split</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- AI STATUS -->
+    <div class="ai-status glass">
+        <span class="pulse"></span>
+        <p id="aiStatus">AI analyzing your health...</p>
+    </div>
+
+</section>
+
+
+
+
+
+<!-- HOW IT WORKS (ADVANCED TIMELINE) -->
+<section id="how" class="section dark how-section">
+
+    <h2>How HealthAI Works</h2>
+    <p class="subtext">
+        Transform your health data into intelligent insights with our AI-powered system.
+    </p>
+
+    <div class="timeline">
+
+        <!-- STEP -->
+        <div class="timeline-item reveal">
+            <div class="circle">1</div>
+            <div class="content glass">
+                <div class="icon">📊</div>
+                <h3>Input Your Health Data</h3>
+                <p>Enter symptoms, fitness data, and lifestyle details securely.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item reveal">
+            <div class="circle">2</div>
+            <div class="content glass">
+                <div class="icon">🤖</div>
+                <h3>AI-Based Analysis</h3>
+                <p>Machine learning models process and detect patterns instantly.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item reveal">
+            <div class="circle">3</div>
+            <div class="content glass">
+                <div class="icon">📈</div>
+                <h3>Predictions & Insights</h3>
+                <p>Get disease predictions, diet plans, and recommendations.</p>
+            </div>
+        </div>
+
+        <div class="timeline-item reveal">
+            <div class="circle">4</div>
+            <div class="content glass">
+                <div class="icon">📡</div>
+                <h3>Continuous Monitoring</h3>
+                <p>Track progress with real-time AI analytics dashboard.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TESTIMONIAL -->
+<section class="section testimonial-section">
+
+    <h2>Trusted by Users</h2>
+
+    <div class="testimonial-grid">
+
+        <div class="testimonial-card glass reveal delay1">
+            <p>"HealthAI completely improved my routine."</p>
+            <h4>Rahul Sharma</h4>
+        </div>
+
+        <div class="testimonial-card glass reveal delay2">
+            <p>"Feels like a personal AI health assistant."</p>
+            <h4>Priya Mehta</h4>
+        </div>
+
+        <div class="testimonial-card glass reveal delay3">
+            <p>"Accurate predictions and great insights."</p>
+            <h4>Amit Verma</h4>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BRAND WAVE SECTION -->
+<section class="brand-wave">
+
+    <!-- BACKGROUND GLOW -->
+    <div class="wave-bg"></div>
+
+    <div class="wave-container">
+
+        <!-- LEFT SIDE -->
+        <div class="wave-left">
+
+            <h1 class="wave-title">
+                WE ARE <span>HealthAI</span>
+            </h1>
+
+            <!-- ANIMATED WAVES -->
+            <div class="waves">
+                <svg viewBox="0 0 1440 320" class="wave-svg w1">
+                    <path fill="none" stroke="#00c6ff" stroke-width="4"
+                        d="M0,160 C320,300 420,0 720,120 C1020,240 1120,80 1440,160">
+                    </path>
+                </svg>
+
+                <svg viewBox="0 0 1440 320" class="wave-svg w2">
+                    <path fill="none" stroke="#00ffcc" stroke-width="3"
+                        d="M0,180 C300,60 500,260 800,140 C1100,20 1200,260 1440,120">
+                    </path>
+                </svg>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="wave-right">
+            <p>
+                At <strong>HealthAI</strong>, we use artificial intelligence to predict diseases,
+                optimize fitness routines, and provide personalized nutrition plans.
+                Our goal is to make healthcare smarter, faster, and accessible for everyone.
+                <br><br>
+                <span class="highlight">#AIForBetterHealth</span>
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer-pro">
+
+    <div class="footer-grid">
+
+        <!-- LEFT BRAND -->
+        <div class="footer-brand">
+            <h2>HealthAI</h2>
+            <p>
+                Health and Fitness Report Analyzer powered by AI.
+                Predict diseases early, track health metrics, and get
+                personalized diet & fitness recommendations effortlessly.
+                <br><br>
+                <span>#AIForBetterHealth</span>
+            </p>
+        </div>
+
+        <!-- COLUMN 1 -->
+        <div class="footer-col">
+            <h4>AI Features</h4>
+            <a href="#">Disease Prediction</a>
+            <a href="#">Diet Recommendation</a>
+            <a href="#">Health Monitoring</a>
+            <a href="#">AI Chatbot</a>
+        </div>
+
+        <!-- COLUMN 2 -->
+        <div class="footer-col">
+            <h4>Platform</h4>
+            <a href="#">Dashboard</a>
+            <a href="#">Reports</a>
+            <a href="#">Analytics</a>
+            <a href="#">Security</a>
+        </div>
+
+        <!-- COLUMN 3 -->
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Careers</a>
+            <a href="#">Blog</a>
+        </div>
+
+        <!-- COLUMN 4 -->
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Data Protection</a>
+        </div>
+
+      
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+        © 2026 HealthAI • All rights reserved
+    </div>
+
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/script.js"></script>
+
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="auth-modal">
+
+    <div class="auth-container">
+
+        <span class="close-btn" onclick="closeModal()">×</span>
+
+        <!-- IFRAME (LOAD YOUR REAL PAGES) -->
+        <iframe id="authFrame" src="about:blank"></iframe>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(login-user|signup-user|google-login|multi-predict|upload-report|chat|download-report|logout|check-auth)",
+      "destination": "https://healthai-backend-gaurav.onrender.com/$1"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://healthai-backend-gaurav.onrender.com/uploads/:path*"
+    }
+  ]
+}

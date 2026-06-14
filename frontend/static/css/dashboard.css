@@ -1,0 +1,821 @@
+/* ===== BODY ===== */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top right, #101827, #070a13 70%, #020408);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    height: 60px;
+    box-sizing: border-box;
+    background: rgba(7, 10, 19, 0.65);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00c6ff, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== ONE SCREEN DASHBOARD LAYOUT ===== */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 340px;
+    gap: 15px;
+    height: calc(100vh - 60px);
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.layout-left, .layout-center, .layout-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 198, 255, 0.4);
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1200px) {
+    body {
+        overflow: auto;
+        height: auto;
+    }
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+    }
+    .layout-left, .layout-center, .layout-right {
+        height: auto;
+        overflow: visible;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .dashboard-layout {
+        grid-template-columns: 280px 1fr;
+    }
+    .layout-right {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 15px;
+        height: auto;
+    }
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    padding: 30px;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    animation: fadeIn 0.6s ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 6px;
+    color: #f8fafc;
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+}
+
+/* ===== INPUT ===== */
+input {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.6);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+input:focus {
+    outline: none;
+    border-color: #00c6ff;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.25);
+    background: rgba(15, 23, 42, 0.8);
+}
+input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ===== BUTTON ===== */
+button {
+    margin-top: 5px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 198, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 198, 255, 0.35);
+}
+button:active {
+    transform: translateY(0);
+}
+
+/* ===== RESULT CARDS ===== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.result {
+    text-align: center;
+    font-size: 14px;
+    transition: 0.3s;
+    padding: 12px;
+}
+
+.result:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
+}
+
+.result h4 {
+    margin: 0 0 6px 0;
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.result p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===== COLORS ===== */
+.diabetes { border-left: 5px solid #ff4d4d; }
+.heart { border-left: 5px solid #ffcc00; }
+.bp { border-left: 5px solid #00ffcc; }
+
+/* ===== HEALTH SCORE ===== */
+#healthScore {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.green { color: #00ff99; }
+.yellow { color: #ffcc00; }
+.red { color: #ff4d4d; }
+
+/* ===== CHAT UI ===== */
+.chat-toggle{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    color: white;
+    font-size: 20px;
+    padding: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0,198,255,0.6);
+}
+
+.chat-box{
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 320px;
+    height: 450px;
+    background: #1e2a32;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
+
+.chat-header{
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    padding: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-messages{
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-msg{
+    align-self: flex-end;
+    background: #00c6ff;
+    padding: 10px 14px;
+    border-radius: 15px 15px 0 15px;
+    margin: 6px 0;
+    max-width: 75%;
+}
+
+.ai-msg{
+    align-self: flex-start;
+    background: #2c3e50;
+    padding: 10px 14px;
+    border-radius: 15px 15px 15px 0;
+    margin: 6px 0;
+    max-width: 75%;
+}
+
+.typing{
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.chat-input{
+    display: flex;
+    border-top: 1px solid #444;
+}
+
+.chat-input input{
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.chat-input button{
+    background: #00c6ff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== LIGHT MODE ===== */
+body.light {
+    background: radial-gradient(circle at top right, #e0f2fe, #f1f5f9 60%, #cbd5e1);
+    color: #0f172a;
+}
+body.light .card {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+    box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+}
+body.light .card h3 {
+    border-bottom-color: rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+}
+body.light input {
+    background: rgba(15, 23, 42, 0.04);
+    border-color: rgba(15, 23, 42, 0.12);
+    color: #0f172a;
+}
+body.light input::placeholder {
+    color: rgba(15, 23, 42, 0.45);
+}
+body.light input:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #0ea5e9;
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+}
+body.light .navbar {
+    background: rgba(255, 255, 255, 0.75);
+    border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+body.light .navbar h2 {
+    background: linear-gradient(135deg, #0284c7, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+body.light .vital-box {
+    background: rgba(15, 23, 42, 0.04);
+}
+body.light #gaugeValue {
+    color: #0f172a;
+}
+body.light .result h4 {
+    color: #64748b;
+}
+body.light .result p {
+    color: #0f172a;
+}
+body.light .ai-box {
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.04);
+}
+body.light .ai-section li {
+    color: #334155;
+}
+
+
+/* ================= GAUGE WRAPPER ================= */
+.gauge-wrapper{
+    position: relative;
+    width: 140px;
+    margin: auto;
+}
+
+/* ================= CANVAS ================= */
+#healthGauge{
+    width: 140px !important;
+    height: 140px !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* ================= CENTER NUMBER ================= */
+#gaugeValue{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    z-index: 3;
+}
+
+/* ================= GLOW ================= */
+#gaugeGlow{
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: blur(15px);
+
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.gauge-glow-base{
+    opacity: 0.6;
+}
+
+/* ================= GLOW ANIMATION ================= */
+@keyframes pulseGlow{
+    0% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0.5; }
+}
+
+.glow-green{
+    background: #00ff99;
+    animation: pulseGlow 2s infinite;
+}
+
+.glow-yellow{
+    background: #ffcc00;
+    animation: pulseGlow 1.5s infinite;
+}
+
+.glow-red{
+    background: #ff4d4d;
+    animation: pulseGlow 0.8s infinite;
+}
+
+/* ================= HEARTBEAT ================= */
+.heartbeat-wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+/* HEART DOT (FIXED) */
+#heartbeat{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    /* 🔥 IMPORTANT FIX */
+    background: currentColor;   /* dynamic color */
+    color: #00ff99;             /* default fallback */
+
+    box-shadow: 0 0 10px currentColor;
+    transition: 0.3s;
+}
+
+/* HEARTBEAT ANIMATION */
+@keyframes heartbeatPulse{
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.6); }
+    100% { transform: scale(1); }
+}
+
+/* COLORS (CLEANED) */
+.beat-green{
+    color: #00ff99;
+    animation: heartbeatPulse 1.2s infinite;
+}
+
+.beat-yellow{
+    color: #ffcc00;
+    animation: heartbeatPulse 0.9s infinite;
+}
+
+.beat-red{
+    color: #ff4d4d;
+    animation: heartbeatPulse 0.6s infinite;
+}
+
+
+/* ================= ECG WRAPPER ================= */
+.ecg-wrapper{
+    width: 100%;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+/* SVG LINE */
+.ecg{
+    width: 100%;
+    height: 40px;
+}
+
+/* ECG PATH */
+.ecg path{
+    fill: none;
+    stroke: #00ff99; /* default green */
+    stroke-width: 3;
+
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+
+    animation: ecgMove 2.5s linear infinite;
+}
+
+/* ANIMATION */
+@keyframes ecgMove{
+    0%{
+        stroke-dashoffset: 1000;
+    }
+    100%{
+        stroke-dashoffset: 0;
+    }
+}
+
+#simBtn{
+    background: linear-gradient(90deg, #ffcc00, #ff9900);
+}
+
+
+
+/* ================= VITALS ================= */
+.vitals{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.vital-box{
+    background: rgba(255,255,255,0.04);
+    padding: 8px 12px;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 110px;
+    box-sizing: border-box;
+}
+
+#bpmValue{
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ff99;
+}
+
+#patientStatus{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* STATUS COLORS */
+.status-good{
+    color: #00ff99;
+}
+
+.status-warning{
+    color: #ffcc00;
+}
+
+.status-danger{
+    color: #ff4d4d;
+}
+
+
+
+.slider {
+    position: relative;
+    width: 100%;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slider-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.slider-controls button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #00aaff;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Pie chart size */
+#conditionChart{
+    max-width: 220px;
+    max-height: 220px;
+    margin: auto;
+}
+
+/* Slide fix */
+#conditionSlide{
+    display: none;        /* JS controls visibility */
+    text-align: center;
+    min-height: 300px;    /* IMPORTANT for chart visibility */
+}
+
+
+/* ===== GRID ===== */
+.insight-grid{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+
+    width: 100%;
+    padding: 0 12px;        /* 🔥 left-right balance */
+    box-sizing: border-box;
+    overflow: hidden;       /* 🔥 fix right overflow */
+}
+
+/* ===== CARD ===== */
+.insight-card{
+    position: relative;     /* 🔥 required for ::before */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    background: linear-gradient(135deg,#1f3a44,#2c5364);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: #fff;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+
+    transform: translateY(20px);
+    opacity: 0;
+
+    animation: cardIn 0.5s ease forwards;
+
+    transition: all 0.3s ease;   /* 🔥 hover smooth */
+}
+
+/* ===== HOVER EFFECT ===== */
+.insight-card:hover{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+/* ===== LEFT COLOR BAR ===== */
+.insight-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:4px;
+    border-radius:12px 0 0 12px;
+    background:#00c6ff;
+    transition: all 0.3s ease;
+}
+
+/* color types */
+.insight-card.high::before{ background:#ff4d4d; }
+.insight-card.mid::before{ background:#ffcc00; }
+.insight-card.good::before{ background:#00ff99; }
+
+/* glow on hover */
+.insight-card:hover::before{
+    width:6px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+/* ===== TEXT ===== */
+.insight-title{
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.insight-text{
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes cardIn{
+    to{
+        transform: translateY(0);
+        opacity:1;
+    }
+}
+
+
+
+/* container */
+.ai-box{
+    padding:12px 14px;
+    border-radius:10px;
+    background: rgba(255,255,255,0.05);
+    border-left:4px solid #00c6ff;
+    color:#fff;
+}
+
+/* status colors */
+.ai-box.good { border-left-color:#00ff99; }
+.ai-box.mid  { border-left-color:#ffcc00; }
+.ai-box.high { border-left-color:#ff4d4d; }
+
+/* title */
+.ai-status{
+    font-size:16px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* sections */
+.ai-section{
+    margin-top:8px;
+}
+
+/* headings */
+.ai-section h4{
+    margin:4px 0;
+    color:#00c6ff;
+    font-size:13px;
+}
+
+/* remove default spacing */
+.ai-section ul{
+    margin:4px 0;      /* 🔥 FIX GAP */
+    padding-left:16px;
+}
+
+.ai-section li{
+    margin:2px 0;      /* 🔥 tighter spacing */
+    font-size:13px;
+}
+
+
+.download-btn{
+    padding: 12px 20px;
+    background: linear-gradient(135deg,#00c6ff,#0072ff);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover{
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* ===== CHARTS GRID ===== */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+@media (max-width: 600px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== NEW RESPONSIVE STYLING RULES FOR DASHBOARD ===== */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 10px 15px;
+    }
+    /* Stack the gauge and vitals vertically on small screens */
+    .dashboard-layout .layout-center .card > div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    .vitals {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px !important;
+        margin: 0 !important;
+    }
+}
+@media (max-width: 360px) {
+    /* Adjust grid columns for result cards on tiny screens */
+    .cards {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 8px;
+    }
+    .result p {
+        font-size: 15px;
+    }
+}

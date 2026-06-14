@@ -3,8 +3,11 @@ import pytesseract
 import cv2
 import re
 
+import sys
+
 # 👉 SET YOUR TESSERACT PATH (change if needed)
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if sys.platform.startswith('win'):
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 def extract_text_from_pdf(path):

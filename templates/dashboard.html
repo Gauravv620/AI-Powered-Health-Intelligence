@@ -1,127 +1,220 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>HealthAI Dashboard</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="nav">
-  <div class="logo">HealthAI</div>
-  <div class="actions">
-    <button onclick="toggleTheme()">🌙</button>
-    <a href="/logout">Logout</a>
-  </div>
-</header>
-
-<main class="grid">
-
-  <!-- UPLOAD -->
-  <section class="card">
-    <h3>Upload Medical Report</h3>
-    <input type="file" id="file">
-    <button onclick="uploadFile()">Upload</button>
-  </section>
-
-  <!-- INPUT -->
-  <section class="card">
-    <h3>Health Inputs</h3>
-
-    <div class="row">
-      <input id="pregnancies" placeholder="Pregnancies">
-      <input id="glucose" placeholder="Glucose">
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <h2>HealthAI</h2>
+        <div class="nav-right">
+            <button onclick="toggleTheme()" style="padding: 8px; font-size: 16px;">🌙</button>
+        </div>
     </div>
 
-    <div class="row">
-      <input id="blood_pressure" placeholder="Blood Pressure">
-      <input id="bmi" placeholder="BMI">
+    <div class="dashboard-layout">
+
+        <!-- LEFT PANEL: Data Input -->
+        <div class="layout-left">
+            <!-- UPLOAD -->
+            <div class="card">
+                <h3>Upload Health Report</h3>
+                <input type="file" id="fileInput" style="font-size: 12px; margin-bottom: 10px;">
+                <button onclick="uploadFile()" style="width: 100%; padding: 10px; font-size: 14px;">Upload &
+                    Analyze</button>
+            </div>
+
+            <!-- INPUT -->
+            <div class="card" style="flex: 1;">
+                <h3>Enter Health Data</h3>
+                <div class="grid">
+                    <input id="age" type="number" placeholder="Age">
+                    <input id="bmi" type="number" placeholder="BMI">
+                    <input id="glucose" type="number" placeholder="Glucose">
+                    <input id="hba1c" type="number" step="any" placeholder="HbA1c">
+                    <input id="bp" type="text" placeholder="BP (e.g. 120/80)">
+                    <input id="cholesterol" type="number" placeholder="Cholesterol">
+                    <input id="maxhr" type="number" placeholder="Max Heart Rate">
+                    <input id="hypertension" type="number" placeholder="Hypertension (0/1)">
+                </div>
+                <div style="display:flex; flex-direction: column; gap:10px; margin-top:15px;">
+                    <button onclick="analyze()" style="padding: 12px; font-size: 14px;">Analyze Data</button>
+                    <button onclick="toggleSimulation()" id="simBtn"
+                        style="padding: 12px; font-size: 14px; background: linear-gradient(90deg, #ffcc00, #ff9900);">▶
+                        Start Simulation</button>
+                </div>
+            </div>
+
+            <!-- DOWNLOAD -->
+            <div class="card" style="text-align:center;">
+                <button class="download-btn" onclick="downloadReport()"
+                    style="width: 100%; font-size: 14px; padding: 12px; margin-bottom: 0;">📄 Download Report</button>
+                <div id="qrContainer" style="display: none; margin-top: 15px; text-align: center; padding: 12px; background: rgba(255, 255, 255, 0.04); border-radius: 10px; border: 1px dashed rgba(255, 255, 255, 0.15);">
+                    <h4 style="margin: 0 0 8px 0; font-size: 12px; color: #94a3b8; font-weight: 500;">Scan to View Report</h4>
+                    <div id="qrcode" style="display: inline-block; padding: 6px; background: white; border-radius: 8px; line-height: 0;"></div>
+                    <p style="margin: 8px 0 0 0; font-size: 11px; color: #00ff99;">Scan with any device camera</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CENTER PANEL: Real-time Vitals & Results -->
+        <div class="layout-center">
+            <!-- RESULTS -->
+            <div class="cards">
+                <div class="card result diabetes" style="margin-bottom: 0;">
+                    <h4>Diabetes</h4>
+                    <p id="diabetes">--</p>
+                </div>
+                <div class="card result heart" style="margin-bottom: 0;">
+                    <h4>Heart Risk</h4>
+                    <p id="heart">--</p>
+                </div>
+                <div class="card result bp" style="margin-bottom: 0;">
+                    <h4>Blood Pressure</h4>
+                    <p id="bpRisk">--</p>
+                </div>
+                <div class="card result" style="margin-bottom: 0;">
+                    <h4>Health Score</h4>
+                    <p id="healthScore">--</p>
+                </div>
+            </div>
+
+            <!-- HEALTH METER -->
+            <div class="card"
+                style="flex: 0.8; display: flex; flex-direction: column; justify-content: space-between; padding: 12px;">
+                <h3 style="margin-bottom: 8px;">Live Health Meter</h3>
+
+                <div
+                    style="display: flex; justify-content: space-around; align-items: center; flex: 1; padding: 5px 0;">
+                    <div class="gauge-wrapper">
+                        <div id="gaugeGlow"></div>
+                        <canvas id="healthGauge"></canvas>
+                        <div id="gaugeValue" style="font-size: 20px;">0</div>
+                    </div>
+
+                    <div class="vitals" style="display: flex; flex-direction: column; gap: 8px; margin: 0;">
+                        <div class="vital-box"
+                            style="display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 6px 12px; min-width: 110px;">
+                            <div>
+                                <h4 style="margin: 0; font-size: 11px; color: #ccc; text-align: left;">BPM</h4>
+                                <p id="bpmValue" style="margin: 2px 0 0 0; font-size: 20px; text-align: left;">--</p>
+                            </div>
+                            <div id="heartbeat"></div>
+                        </div>
+                        <div class="vital-box" style="text-align: left; padding: 6px 12px; min-width: 110px;">
+                            <h4 style="margin: 0; font-size: 11px; color: #ccc;">Status</h4>
+                            <p id="patientStatus" style="margin: 2px 0 0 0; font-size: 16px;">--</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ecg-wrapper" style="margin-top: 5px; height: 40px;">
+                    <svg viewBox="0 0 500 100" class="ecg" style="height: 40px;">
+                        <path
+                            d="M0,50 L40,50 L55,30 L70,70 L85,20 L100,50 L150,50 L165,35 L180,65 L195,25 L210,50 L260,50 L275,40 L290,60 L305,30 L320,50 L500,50" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- CHARTS -->
+            <div class="charts-grid" style="flex: 1.25;">
+                <div class="card" style="padding: 12px; margin-bottom: 0; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 14px; margin-bottom: 8px;">Age vs Health</h3>
+                    <div style="flex: 1; min-height: 150px; position: relative;">
+                        <canvas id="ageHealthChart"></canvas>
+                    </div>
+                </div>
+                <div class="card" style="padding: 12px; margin-bottom: 0; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 14px; margin-bottom: 8px;">Health Analysis</h3>
+                    <div style="flex: 1; min-height: 150px; position: relative;">
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: Insights & AI -->
+        <div class="layout-right">
+            <!-- AI EXPLANATION -->
+            <div class="card" style="flex: 1.5; overflow: hidden; display: flex; flex-direction: column;">
+                <h3> AI Explanation</h3>
+                <div id="aiExplain"
+                    style="line-height:1.6; font-size:13px; overflow-y: auto; flex: 1; padding-right: 5px;"></div>
+            </div>
+
+            <!-- RISK EXPLANATION -->
+            <div class="card" style="flex: 0.5;">
+                <h3>Risk Explanation</h3>
+                <p id="riskReason" style="font-size: 13px; color: #ffcc00; margin: 0;">Click a point to see why score
+                    dropped</p>
+            </div>
+
+            <!-- HEALTH INSIGHTS -->
+            <div class="card" style="flex: 1.5; display: flex; flex-direction: column;">
+                <h3> Health Insights</h3>
+                <div class="slider" style="flex: 1; display: flex; flex-direction: column;">
+                    <!-- Slide 1 -->
+                    <div class="slide active" id="dietSlide" style="flex: 1;">
+                        <h4 style="margin: 5px 0 10px 0; color: #00c6ff;">Diet Recommendations</h4>
+                        <div id="dietList" class="insight-grid"
+                            style="max-height: 160px; overflow-y: auto; padding-right: 5px; margin-top: 0;"></div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide" id="lifestyleSlide" style="flex: 1;">
+                        <h4 style="margin: 5px 0 10px 0; color: #00c6ff;">🏃 Lifestyle Suggestions</h4>
+                        <div id="lifestyleList" class="insight-grid"
+                            style="max-height: 160px; overflow-y: auto; padding-right: 5px; margin-top: 0;"></div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide" id="conditionSlide" style="flex: 1;">
+                        <h4 style="margin: 5px 0 10px 0; color: #00c6ff;">Condition Breakdown</h4>
+                        <div style="width:160px; height:160px; margin:auto;">
+                            <canvas id="conditionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- controls -->
+                <div class="slider-controls" style="margin-top: 10px;">
+                    <button onclick="prevSlide()"
+                        style="padding: 6px 12px; font-size: 12px; background: rgba(255,255,255,0.1);">⬅ Prev</button>
+                    <button onclick="nextSlide()"
+                        style="padding: 6px 12px; font-size: 12px; background: rgba(255,255,255,0.1);">Next ➡</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <input id="age" placeholder="Age">
+    <!-- CHAT -->
+    <div class="chat-toggle" onclick="toggleChat()">💬</div>
 
-    <button class="primary" onclick="predict()">Analyze</button>
-  </section>
+    <div id="chatBox" class="chat-box">
+        <div class="chat-header">
+            AI Assistant
+            <span onclick="toggleChat()" style="cursor: pointer;">✖</span>
+        </div>
 
-  <!-- RESULT -->
-  <section class="card result">
-    <h3>Prediction</h3>
-    <div id="riskBadge" class="badge">—</div>
-    <div id="scoreText">Score: —</div>
-  </section>
+        <div id="chatMessages" class="chat-messages"></div>
 
-  <!-- HEALTH SCORE -->
-  <section class="card">
-    <h3>Health Score</h3>
-    <div class="ring">
-      <span id="scoreVal">0%</span>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask health questions...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
     </div>
-  </section>
 
-  <!-- CHARTS -->
-  <section class="card">
-    <h3>Metrics</h3>
-    <canvas id="barChart"></canvas>
-  </section>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
 
-  <section class="card">
-    <h3>Risk Gauge</h3>
-    <canvas id="gaugeChart"></canvas>
-  </section>
-
-  <section class="card">
-    <h3>Health Trends</h3>
-    <canvas id="trendChart"></canvas>
-  </section>
-
-  <!-- ECG -->
-  <section class="card">
-    <h3>Live Heart Activity</h3>
-    <canvas id="ecgChart"></canvas>
-  </section>
-
-  <!-- SUMMARY -->
-  <section class="card">
-    <h3>Summary</h3>
-    <div id="summaryBox"></div>
-  </section>
-
-  <!-- RECOMMENDATION -->
-  <section class="card">
-    <h3>Recommendations</h3>
-    <div id="recBox"></div>
-  </section>
-
-  <!-- AI DOCTOR -->
-  <section class="card">
-    <h3>AI Doctor Explanation</h3>
-    <button onclick="getExplanation()">Generate Report</button>
-    <div id="aiReport"></div>
-  </section>
-
-  <!-- CHATBOT -->
-  <section class="card">
-    <h3>AI Health Assistant</h3>
-
-    <div id="chatBox" class="chat-box"></div>
-
-    <input id="chatInput" placeholder="Ask about your health...">
-    <button onclick="sendMessage()">Send</button>
-
-    <button onclick="startVoice()">🎤 Speak</button>
-    <div id="voiceText"></div>
-  </section>
-
-  <!-- ACTION -->
-  <section class="card">
-    <h3>Actions</h3>
-    <button onclick="downloadReport()">Download Report</button>
-  </section>
-
-</main>
-
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 </body>
+
 </html>

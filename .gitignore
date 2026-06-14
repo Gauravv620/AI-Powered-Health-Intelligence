@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.db
+users.db
+uploads/*
+!uploads/.gitkeep
+.env
+.vscode/
+.idea/
+frontend/node_modules/
