@@ -338,7 +338,8 @@ html, body {
 
 .face-box {
     position: relative;
-    width: 350px;
+    width: 90%;
+    max-width: 350px;
     height: 380px;
     text-align: center;
     color: white;
@@ -437,6 +438,7 @@ body.iframe-mode .divider {
 }
 
 body.iframe-mode .socials {
+    flex-direction: column;
     gap: 8px;
 }
 
@@ -448,4 +450,15 @@ body.iframe-mode .socials button {
 body.iframe-mode .signup {
     margin-top: 14px;
     font-size: 12.5px;
+}
+
+@media (max-width: 400px) {
+    .login-card {
+        padding: 20px 15px;
+        border-radius: 16px;
+    }
+    .socials {
+        flex-direction: column;
+        gap: 8px;
+    }
 }

@@ -6,17 +6,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
-body {
+/* BODY & HTML */
+html, body {
     background: #020617;
     color: white;
     overflow-x: hidden;
 }
 
-body{
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main{
@@ -328,32 +328,11 @@ main{
 
 
 
-.grid{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:25px;
-}
-
-@media(max-width:1000px){
-    .grid{
-        grid-template-columns: repeat(2,1fr);
-    }
-}
-
-@media(max-width:600px){
-    .grid{
-        grid-template-columns: 1fr;
-    }
-}
+/* Grid classes consolidated at line 167 */
 
 
 
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:25px;
-}
+/* GRID block consolidated at line 167 */
 
 /* CARD BASE */
 .nf-card{
@@ -426,18 +405,7 @@ main{
     transform:translateY(0);
 }
 
-/* RESPONSIVE */
-@media(max-width:1000px){
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(max-width:600px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-}
+/* Responsive grid handled fluidly by minmax auto-fit */
 
 
 /* PROGRAMS GRID (NO SCROLL) */
@@ -738,6 +706,12 @@ main{
     padding:25px;
     border-radius:20px;
     transition:0.4s;
+    overflow: hidden;
+}
+
+.dash-card canvas {
+    max-width: 100% !important;
+    height: auto !important;
 }
 
 .dash-card:hover{
@@ -941,12 +915,7 @@ main{
     box-shadow:0 10px 30px rgba(0,198,255,0.3);
 }
 
-/* TESTIMONIAL GRID */
-.testimonial-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-}
+/* TESTIMONIAL GRID consolidated at line 816 */
 
 /* ANIMATION BASE */
 .reveal{
@@ -1200,19 +1169,12 @@ main{
 
 
 
-/* REMOVE SIDE GAP FOR FULL WIDTH SECTIONS */
-.brand-wave,
-.footer-pro{
-    width:100vw;
-    margin-left:calc(-50vw + 50%);
-}
+/* REMOVE SIDE GAP FOR FULL WIDTH SECTIONS (REMOVED 100VW OVERFLOW SHIFT) */
 
 /* FINAL FOOTER */
 .footer-pro{
-    width:100vw;
-    margin-left:calc(-50vw + 50%);
     background:#000;
-    padding:60px 0 20px;   /* remove side padding */
+    padding:60px 0 20px;
 }
 
 /* INNER CONTENT */
@@ -1271,7 +1233,7 @@ main{
 
 /* BOX */
 .auth-container {
-    width: 100%;
+    width: 90%;
     max-width: 420px;
     height: 580px;   /* little bigger */
     background: #0f2235;
@@ -1281,6 +1243,7 @@ main{
 
     /* ✅ IMPORTANT */
     margin: auto;
+    transition: all 0.3s ease;
 }
 
 /* IFRAME */
@@ -1323,6 +1286,10 @@ main{
         font-size: 1.8rem;
         margin-bottom: 25px;
     }
+    .dash-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1343,5 +1310,16 @@ main{
     }
     .hero-content p {
         font-size: 0.95rem;
+    }
+    .auth-container {
+        height: 90vh;
+        max-height: 520px;
+    }
+}
+
+@media (max-height: 600px) {
+    .auth-container {
+        height: 90vh;
+        max-height: 500px;
     }
 }
